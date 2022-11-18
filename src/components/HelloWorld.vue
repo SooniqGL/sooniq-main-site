@@ -1,0 +1,142 @@
+<template>
+  <div class="hello">
+    <h1>Welcome My Friend!</h1>
+    <p>
+      For a guide and recipes on how to configure / customize this project,<br>
+      check out the
+      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">Sooniq documentation</a>.
+    </p>
+    <h3>Market Place</h3>
+    <ul>
+      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-typescript" target="_blank" rel="noopener">General</a></li>
+    </ul>
+    <h3>Essential Links</h3>
+    <ul>
+      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
+      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
+      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
+      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
+      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
+    </ul>
+    <h3>Your websites</h3>
+    <ul>
+      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">xxx.sooniq.com</a></li>
+      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">yyy.sooniq.com</a></li>
+    </ul>
+  </div>
+
+  <div>
+    <form @submit="formSubmit">
+        <strong>Name:</strong>
+        <input type="text" class="form-control" v-model="name">
+        <strong>Password:</strong>
+        <input type="text" class="form-control" v-model="password">
+        <!--textarea class="form-control" v-model="description"></textarea-->
+
+        <button class="btn btn-success">Submit</button>
+      </form>
+
+  </div>
+</template>
+
+<script lang="ts">
+// this is type-based declaration, you can do runtime declaration also
+
+/*  can do interface way, and define default values
+export interface Props {
+  msg?: string
+  labels?: string[]
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  msg: 'hello',
+  labels: () => ['one', 'two']
+})
+*/
+/*
+const props = defineProps<{
+  msg: string
+  bar?: number
+}>()
+
+props.msg = 'Jason' // string
+props.bar // number | undefined
+
+
+
+interface Props {
+  name: string
+  count?: number
+} 
+
+// reactive destructure for defineProps()
+// default value is compiled to equivalent runtime option
+const { name, count = 100 } = defineProps<Props>()
+*/
+
+
+import { ref } from "vue";
+import { reactive } from "vue";
+
+export default {
+
+  setup() {
+    const msg = ref("Home");
+
+    const { state, addProduct } = StateHdl();
+
+    /*
+    function formSubmit(e) {
+                e.preventDefault();
+                let currentObj = this;
+                this.axios.post('http://localhost:8000/yourPostApi', {
+                    name: this.name,
+                    description: this.description
+                })
+                .then(function (response) {
+                    currentObj.output = response.data;
+                })
+                .catch(function (error) {
+                    currentObj.output = error;
+                });
+            }
+*/
+    return { msg, state, addProduct };
+  }
+  };
+
+  function StateHdl() {
+        let state = reactive({
+            msg: "",
+            Products: ["Product 1"]
+        });
+        let addProduct = () => {
+            state.Products.push(state.msg);
+            state.msg = "";
+        };
+
+         return { state, addProduct };
+    };
+
+    
+
+
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+h3 {
+  margin: 40px 0 0;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
+}
+</style>
