@@ -21,7 +21,7 @@ import { useSecurityStore } from "@/stores/security";
 const useSecurity = useSecurityStore();
 let interval = 0;
 
-
+// The security token is refreshed every 5 minutes
 onMounted(() => {
   useSecurity.fetchToken();
   interval = setInterval(useSecurity.renewToken, 300000)
